@@ -1,0 +1,54 @@
+//head is the head of the linked list, n is number of elements to be reversed
+// Following is the node structure
+/**************
+class node{
+public:
+    int data;
+    node * next;
+    node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+***************/
+
+node* kReverse(node*head,int n)
+{
+    //write your code here
+     node* temp=head;
+    node* head1;
+    node* prev=NULL;
+    node* current=head;
+    node* ahead=NULL;
+    int count=0;
+    while(temp!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    temp=head;
+    int r=(count/n);
+    if(count%n != 0)r++;
+    
+    for(int i=0;i<r;i++){
+        int k=n;
+        prev=NULL;
+        ahead=NULL;
+        while(k>0 && current!=NULL){
+            ahead=current->next;
+            current->next=prev;
+            prev=current;
+            current=ahead;
+            k--;
+        }
+        if(i==0){
+            temp=prev;
+            head1=current;
+        }
+        else{
+            head->next=prev;
+            head=head1;
+            head1=current;
+        }
+    }
+    return temp;
+}
