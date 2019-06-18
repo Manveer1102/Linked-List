@@ -1,0 +1,69 @@
+//head is head of your linked list, i and j are indexes to be swapped
+// Following is the node structure
+/**************
+class node{
+public:
+    int data;
+    node * next;
+    node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+***************/
+node* swap_nodes(node *head,int i,int j)
+{
+  if(head==NULL||head->next==NULL)
+    return head;
+  if(i!=0&&j!=0){
+    node *temp1=head;
+    i--;
+    while(i--){
+      temp1=temp1->next;
+    }
+    node *temp2=head;
+    j--;
+   
+    while(j--){
+      temp2=temp2->next;
+    }
+    
+    node *temp=temp1->next;
+    temp1->next=temp2->next;
+    temp2->next=temp;
+    temp=temp->next;
+    temp2->next->next=temp1->next->next;
+    temp1->next->next=temp;
+    return head;
+  }
+  
+  else if(i==0){
+    node *temp2=head;
+    j--;
+    while(j--){
+      temp2=temp2->next;
+    }
+    node *temp=head;
+    head=temp2->next;
+    temp2->next=temp;
+    temp=temp->next;
+    temp2->next->next=head->next;
+    head->next=temp;
+    return head;
+  }
+  
+  else if(j==0){
+    node *temp2=head;
+    i--;
+    while(i--){
+      temp2=temp2->next;
+    }
+    node *temp=head;
+    head=temp2->next;
+    temp2->next=temp;
+    temp=temp->next;
+    temp2->next->next=head->next;
+    head->next=temp;
+    return head;
+  }
+}
