@@ -1,0 +1,59 @@
+//head is the head of you linked list
+// Following is the node structure
+/**************
+class node{
+public:
+    int data;
+    node * next;
+    node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+***************/
+bool check_palindrome(node* head)
+{
+    //write your code here
+    int flag=0;
+    node* current=NULL;
+    node* prev=NULL;
+    node* ahead=NULL;
+    node*temp=head;
+    int count=0;
+    while(temp!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    temp=head;
+    for(int i=0;i<count/2;i++){
+        temp=temp->next;
+    }
+    current=temp;
+    while(current !=NULL){
+        ahead=current->next;
+        current->next=prev;
+        prev=current;
+        current=ahead;
+    }
+    temp=head;
+    for(int j=0;j<(count/2)-1;j++){
+        temp=temp->next;
+    }
+    temp->next=NULL;
+    while(head!=NULL && prev!=NULL){
+        if(head->data==prev->data){
+            flag=1;
+        }
+        else{
+            flag=0;
+        }
+        head=head->next;
+        prev=prev->next;
+    }
+    if(flag==1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
