@@ -1,0 +1,94 @@
+/*************
+ Following is the Node structure already written.
+
+ template <typename T>
+ class Node {
+	public:
+	T data;
+	Node* next;
+ 
+	Node(T data) {
+ next = NULL;
+ this->data = data;
+	}
+ 
+	~Node() {
+ if (next != NULL) {
+ delete next;
+ }
+	}
+ };
+ 
+*************/
+
+
+void AlternatingSplit(Node<int>* head) {
+	// Write your code here
+    Node<int>* oddhead=NULL;
+    Node<int>* oddtail=NULL;
+    Node<int>* evenhead=NULL;
+    Node<int>* eventail=NULL;
+    //Node<int>* current=head;
+    Node<int>* prev_odd=NULL;
+    Node<int>* prev_even=NULL;
+    Node<int>* ahead=NULL;
+    int count=0;
+    Node<int>* temp=head;
+    while(head!=NULL){
+        if(count%2==0){
+            if(evenhead==NULL){
+                evenhead=head;
+                eventail=head;
+                head=head->next;
+                count++;
+            }
+            else{
+                eventail->next=head;
+                eventail=head;
+                head=head->next;
+                count++;
+            }
+        }
+        else if(count%2==1){
+            if(oddhead==NULL){
+                oddhead=head;
+                oddtail=head;
+                head=head->next;
+                    count++;
+            }
+            else{
+                oddtail->next=head;
+                oddtail=head;
+                head=head->next;
+                count++;
+            }
+        }   
+    }
+    oddtail->next=NULL;
+    eventail->next=NULL;
+    temp=oddhead;
+    Node<int>* current=temp;
+    while(current!=NULL){
+        ahead=current->next;
+        current->next=prev_odd;
+        prev_odd=current;
+        current=ahead;
+    }
+    current=evenhead;
+    ahead=NULL;
+    while(current!=NULL){
+        ahead=current->next;
+        current->next=prev_even;
+        prev_even=current;
+        current=ahead;
+    }
+    while(prev_even!=NULL){
+        cout<<prev_even->data<<" ";
+        prev_even=prev_even->next;
+    }
+    cout<<endl;
+    while(prev_odd!=NULL){
+        cout<<prev_odd->data<<" ";
+        prev_odd=prev_odd->next;
+    }
+}
